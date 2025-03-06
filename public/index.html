@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Raspberry Pi Websockets</title>
+        <style>
+            h1 {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>IOT Based Smart Pet Feeder</h1>
+        
+        <h2>LED Buttons</h2>
+        <button type="button" id="state" onclick="LEDOn()" style="background-color:green;">ON</button>
+        <button type="button" id="state" onclick="LEDOff()" style="background-color:red;">OFF</button>
+        
+        <h2>Food 1</h2>
+        <button type="button" id="state" onclick="ServoOn1()" style="background-color:green;">ON</button>
+		
+		<h2>Food 2</h2>
+        <button type="button" id="state" onclick="ServoOn2()" style="background-color:green;">ON</button>
+        
+        <h2>Call Pet</h2>
+        <button type="button" id="state" onclick="playsound()" style="background-color:green;">ON</button>
+        <p>Camera:</p>
+        
+	    <img src="http://192.168.137.200:3333/webcam" width="300" height="300">
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+        <script>
+            var socket = io.connect(); //load socket.io-client and connect to the host
+            function LEDOn() {
+                socket.emit("state", 1); //send button state to server
+            }
+
+            function LEDOff() {
+                socket.emit("state", 0); //send button state to server
+            }
+            
+            function ServoOn1() {
+                socket.emit("state", 3);
+            }
+            
+            function ServoOn2() {
+                socket.emit("state", 5);
+            }
+            
+            function playsound() {
+                socket.emit("state", 2);
+            }
+        </script>
+    </body>
+</html>
